@@ -44,7 +44,7 @@ class Seg(object):
         self.net = self._get_net()
       
 
-    def trainer(self,train_path,val_path,label_dict,output_dir=None,log_dir=None,optimizer='Adam',
+    def trainer(self,train_path,val_path,output_dir=None,log_dir=None,optimizer='Adam',
                 loss_fun='binary_dice_loss',metrics='binary_dice',lr_scheduler=None):
      
         if not os.path.exists(log_dir):

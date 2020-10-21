@@ -1,5 +1,5 @@
 import tensorflow.compat.v1 as tf
-from layers import tf_conv, tf_pool, tf_upconv
+from model.layers import tf_conv, tf_pool, tf_upconv
 
 import numpy as np
 

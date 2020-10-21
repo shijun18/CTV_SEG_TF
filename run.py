@@ -33,7 +33,7 @@ def main(_):
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
 
-    data_path = './dataset/train'
+    data_path = './dataset/'
     path_list = [os.path.join(data_path,case) for case in os.listdir(data_path)]
     train_path,val_path = get_cross_validation(path_list,5,CURRENT_FOLD)
     

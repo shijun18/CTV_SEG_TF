@@ -3,7 +3,7 @@ __all__ = ['unet']
 
 NET_NAME = 'unet'
 VERSION = 'v1.0'
-DEVICE = '0'
+DEVICE = '1'
 CURRENT_FOLD = 1
 
 
@@ -18,7 +18,7 @@ INIT_TRAINER = {
     'channels':1,
     'num_classes':2,
     'input_shape':(256,256),
-    'batch_size':16,
+    'batch_size':32,
     'is_training':True,
     'weight_path':None
 }
