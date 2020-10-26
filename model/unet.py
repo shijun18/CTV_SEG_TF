@@ -1,5 +1,5 @@
 import tensorflow.compat.v1 as tf
-from model.layers import tf_conv, tf_pool, tf_upconv
+from layers import tf_conv, tf_pool, tf_upconv
 
 import numpy as np
 
@@ -71,22 +71,36 @@ class UNet(object):
 
 
 def unet(name='unet',**kwargs):
-	net = UNet(**kwargs)
-	return net
+    net = UNet(**kwargs)
+    return net
 
 
 if __name__ == "__main__":
-	import os
-	tf.disable_eager_execution()
-	os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-	
-	net = unet(channels=1,n_class=2, input_shape=(512,512))
-	tf.logging.info(str(net.logits.shape))
-    
-	images = np.random.random((1,512,512,1)).astype(np.float32)
-	# labels = np.ones((1,3),dtype=np.uint8)
+    import os
+    tf.disable_eager_execution()
+    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
-	with tf.Session() as sess:
-		sess.run(tf.global_variables_initializer())
-		logits = sess.run([net.logits],feed_dict={net.inputs:images})
-		# print(logits.shape)
+    net = unet(channels=1,n_class=2, input_shape=(512,512))
+    tf.logging.info(str(net.logits.shape))
+
+    images = np.random.random((1,512,512,1)).astype(np.float32)
+    # labels = np.ones((1,3),dtype=np.uint8)
+
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        logits = sess.run([net.logits],feed_dict={net.inputs:images})
+        # print(logits.shape)
+    total_parameters = 0
+    for variable in tf.trainable_variables():
+        print(variable.name)
+        # shape is an array of tf.Dimension
+        shape = variable.get_shape()
+        print(shape)
+        # print(len(shape))
+        variable_parameters = 1
+        for dim in shape:
+            # print(dim)
+            variable_parameters *= int(dim)
+        print(variable_parameters)
+        total_parameters += variable_parameters
+    print(total_parameters)
